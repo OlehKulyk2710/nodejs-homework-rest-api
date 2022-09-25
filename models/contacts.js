@@ -1,6 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
 const { nanoid } = require("nanoid");
+const { writeDataToFile } = require("../helpers");
 
 const contactsPath = path.join(__dirname, "contacts.json");
 
@@ -27,10 +28,11 @@ const addContact = async (body) => {
     const newContact = { id: nanoid(), ...body };
     const contactsList = await getContactsList();
     contactsList.push(newContact);
-    await fs.writeFile(contactsPath, JSON.stringify(contactsList, null, 2));
+    await writeDataToFile(contactsPath, contactsList);
 
     return newContact;
   } catch (error) {
+    console.log("ERROR in addContact");
     return null;
   }
 };
@@ -49,7 +51,7 @@ const updateContact = async (contactId, body) => {
 
     const updatedContact = { id: contactId, ...body };
     contactsList[contactIndex] = { ...updatedContact };
-    await fs.writeFile(contactsPath, JSON.stringify(contactsList, null, 2));
+    await writeDataToFile(contactsPath, contactsList);
 
     return updatedContact;
   } catch (error) {
@@ -69,7 +71,7 @@ const removeContact = async (contactId) => {
     }
 
     const removedContact = contactsList.splice(contactIndex, 1);
-    await fs.writeFile(contactsPath, JSON.stringify(contactsList, null, 2));
+    await writeDataToFile(contactsPath, contactsList);
     return removedContact;
   } catch (error) {
     return null;
