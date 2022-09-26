@@ -32,7 +32,6 @@ const addContact = async (body) => {
 
     return newContact;
   } catch (error) {
-    console.log("ERROR in addContact");
     return null;
   }
 };
