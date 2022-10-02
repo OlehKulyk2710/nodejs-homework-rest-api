@@ -1,14 +1,16 @@
 const { Contact } = require("../../models");
 const { RequestError } = require("../../helpers");
 
-const updateContact = async (req, res, next) => {
+const updateContactFavorite = async (req, res, next) => {
   try {
     const { contactId } = req.params;
+
     const updatedContact = await Contact.findByIdAndUpdate(
       contactId,
       req.body,
       { new: true }
     );
+
     if (!updatedContact) {
       throw RequestError(404);
     }
@@ -18,4 +20,4 @@ const updateContact = async (req, res, next) => {
   }
 };
 
-module.exports = updateContact;
+module.exports = updateContactFavorite;
