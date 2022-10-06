@@ -1,15 +1,14 @@
-const contacts = require("../../models/contacts");
-const schemas = require("../../schemas/index");
+// const contacts = require("../../models/contacts");
+const { Contact } = require("../../models");
+
 const { RequestError } = require("../../helpers");
 
 const addContact = async (req, res, next) => {
   try {
-    const { error } = schemas.addContactSchema.validate(req.body);
-    if (error) {
-      throw RequestError(400, error.message);
-    }
+    console.log("Before");
+    const newContact = await Contact.create(req.body);
 
-    const newContact = await contacts.addContact(req.body);
+    console.log("newContact", newContact);
 
     if (!newContact) {
       throw RequestError(500, "Internal Server Error");
