@@ -1,4 +1,4 @@
 const RequestError = require("./RequestError");
-const writeDataToFile = require("./writeDataToFile");
+const ctrlWrapper = require("./ctrlWrapper");
 
-module.exports = { RequestError, writeDataToFile };
+module.exports = { RequestError, ctrlWrapper };
