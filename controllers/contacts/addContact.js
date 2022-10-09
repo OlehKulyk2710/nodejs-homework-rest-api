@@ -4,7 +4,9 @@ const { RequestError } = require("../../helpers");
 
 const addContact = async (req, res, next) => {
   try {
-    const newContact = await Contact.create(req.body);
+    const { _id: owner } = req.user;
+
+    const newContact = await Contact.create({ ...req.body, owner });
 
     if (!newContact) {
       throw RequestError(500, "Internal Server Error");

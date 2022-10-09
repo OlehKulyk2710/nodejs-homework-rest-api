@@ -5,7 +5,10 @@ const getContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
 
-    const contact = await Contact.findById(contactId);
+    const contact = await Contact.findById(contactId).populate(
+      "owner",
+      "name email"
+    );
 
     if (!contact) {
       throw RequestError(404, "Not found");
