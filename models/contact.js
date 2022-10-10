@@ -5,12 +5,12 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      unidue: true,
+      unique: true,
       required: [true, "Set name for contact"],
     },
     email: {
       type: String,
-      unidue: true,
+      unique: true,
       required: true,
     },
     phone: {

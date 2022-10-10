@@ -7,7 +7,7 @@ const {
   deleteContact,
 } = require("./contacts");
 
-const { signup, login, getCurrent, logout } = require("./auth");
+const { signup, login, getCurrent, logout, update } = require("./auth");
 
 module.exports = {
   getContacts,
@@ -20,4 +20,5 @@ module.exports = {
   login,
   getCurrent,
   logout,
+  update,
 };
