@@ -1,4 +1,5 @@
 const RequestError = require("./RequestError");
-const writeDataToFile = require("./writeDataToFile");
+const handleSaveErrors = require("./handleSaveErrors");
+const ctrlWrapper = require("./ctrlWrapper");
 
-module.exports = { RequestError, writeDataToFile };
+module.exports = { RequestError, handleSaveErrors, ctrlWrapper };
