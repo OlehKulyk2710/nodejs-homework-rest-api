@@ -1,12 +1,13 @@
 const express = require("express");
 const { ctrlWrapper } = require("../../helpers");
-const { validateBody, authenticate } = require("../../middlewares");
+const { validateBody, authenticate, upload } = require("../../middlewares");
 const {
   signup,
   login,
   getCurrent,
   logout,
   update,
+  updateAvatar,
 } = require("../../controllers");
 const {
   userSignupSchema,
@@ -25,6 +26,13 @@ router.patch(
   authenticate,
   validateBody(userUpdSubscrSchema),
   ctrlWrapper(update)
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  ctrlWrapper(updateAvatar)
 );
 
 module.exports = router;
