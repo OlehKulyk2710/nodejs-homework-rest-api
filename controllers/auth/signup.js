@@ -2,9 +2,7 @@ const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const { User } = require("../../models");
-const { RequestError, sendEmail } = require("../../helpers");
-
-const { BASE_URL, PORT } = process.env;
+const { RequestError, sendEmail, createVerifyEmail } = require("../../helpers");
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -26,11 +24,7 @@ const signup = async (req, res) => {
     verificationToken,
   });
 
-  const mail = {
-    to: email,
-    subject: "Confirmation of registration",
-    html: `<a target="_blank" href="${BASE_URL}${PORT}/api/auth/verify/:${verificationToken}">Confirm your email by clicking on this link</a>`,
-  };
+  const mail = createVerifyEmail(email, verificationToken);
 
   await sendEmail(mail);
 

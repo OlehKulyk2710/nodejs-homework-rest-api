@@ -8,16 +8,25 @@ const {
   logout,
   update,
   updateAvatar,
+  verify,
+  resendVerify,
 } = require("../../controllers");
 const {
   userSignupSchema,
   userLoginSchema,
   userUpdSubscrSchema,
+  verifyEmailSchema,
 } = require("../../schemas");
 
 const router = express.Router();
 
 router.post("/signup", validateBody(userSignupSchema), ctrlWrapper(signup));
+router.get("/verify/:verificationToken", ctrlWrapper(verify));
+router.post(
+  "/verify",
+  validateBody(verifyEmailSchema),
+  ctrlWrapper(resendVerify)
+);
 router.post("/login", validateBody(userLoginSchema), ctrlWrapper(login));
 router.get("/current", authenticate, ctrlWrapper(getCurrent));
 router.post("/logout", authenticate, ctrlWrapper(logout));
